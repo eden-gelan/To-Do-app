@@ -4,7 +4,6 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/iconic_icons.dart';
 import 'package:todo/bloc/Todo/to-do_bloc.dart';
 import 'package:todo/bloc/Todo/to-do_event.dart';
-import 'package:todo/config/firestore_service.dart';
 import 'package:todo/constant/constant.dart';
 import 'package:todo/reusableWedget/reusable_button.dart';
 import 'package:todo/reusableWedget/reusable_text.dart';
@@ -23,7 +22,7 @@ class _AddToDoState extends State<AddToDo> {
   final TextEditingController _dueDateController = TextEditingController();
 
   List<String> selectedTags = [];
-  String selectedStatus = 'To-do';
+  String selectedStatus = 'todo';
 
   void _selectTag(String tag) {
     setState(() {
@@ -33,7 +32,10 @@ class _AddToDoState extends State<AddToDo> {
         if (selectedTags.length < 2) {
           selectedTags.add(tag);
         } else {
-          showSnackBar(context, text: "Only 2 tags can be selected.");
+          showSnackBar(context,
+              text: "Only 2 tags can be selected.",
+              icon: Iconic.block,
+              textColor: Colors.red);
           print("Only 2 tags can be selected.");
         }
       }
@@ -63,8 +65,8 @@ class _AddToDoState extends State<AddToDo> {
 
   @override
   Widget build(BuildContext context) {
-    String _dropdownValue = 'To-do';
-    var _items = ["To-do", "doing", "done"];
+    String _dropdownValue = 'todo'; // Ensure casing matches the items
+    var _items = ["todo", "Doing", "Done"];
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
@@ -151,7 +153,7 @@ class _AddToDoState extends State<AddToDo> {
                     .toList(),
                 onChanged: (String? newValue) {
                   setState(() {
-                    selectedStatus = newValue ?? 'To-do';
+                    selectedStatus = newValue ?? 'todo';
                   });
                 },
                 value: selectedStatus,

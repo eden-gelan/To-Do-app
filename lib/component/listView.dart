@@ -22,15 +22,16 @@ class _CustomeListViewState extends State<CustomeListView> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ToDoBloc, ToDoState>(
-      listener: (context, state) {
-        if (state is ToDoDeleted) {
-          showSnackBar(context, text: "deleted");
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return BlocBuilder<ToDoBloc, ToDoState>(builder: (context, state) {
-          if (state is ToDoLoaded) {
-            List<Todo> data = state.myData
+          if (state is ToDoOperationFailure) {
+            return Center(
+              child: Text("COuld not do to do operation"),
+            );
+          }
+          if (state is ToDoLoadSuccess) {
+            List<Todo> data = state.todos
                 .where((todo) => todo.status == widget.status)
                 .toList();
             return ListView.builder(
@@ -40,7 +41,7 @@ class _CustomeListViewState extends State<CustomeListView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -141,22 +142,18 @@ class _CustomeListViewState extends State<CustomeListView> {
                                             UpdateToDoStatusRequested(
                                               todoId: data[index].id ??
                                                   UniqueKey().toString(),
-                                              newStatus: newValue,
+                                              newStatus: newValue.toLowerCase(),
                                             ),
                                           );
                                           Navigator.of(context)
                                               .pop(); // Close the dialog
                                         }
                                       },
-                                      items: [
-                                        'To-Do',
-                                        'Doing',
-                                        'Done',
-                                        'Delete'
-                                      ].map<DropdownMenuItem<String>>(
-                                          (String value) {
+                                      items: ['Todo', 'Doing', 'Done', 'Delete']
+                                          .map<DropdownMenuItem<String>>(
+                                              (String value) {
                                         return DropdownMenuItem<String>(
-                                          value: value,
+                                          value: value.toLowerCase(),
                                           child: Text(value),
                                         );
                                       }).toList(),

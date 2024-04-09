@@ -26,12 +26,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  void initState() {
-    super.initState();
-
-    BlocProvider.of<ToDoBloc>(context).add(GetData());
-  }
-
   void userSignOut() async {
     FirebaseAuthMethods(FirebaseAuth.instance).signOut(context);
   }
@@ -118,28 +112,23 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        body: BlocListener<ToDoBloc, ToDoState>(listener: (context, state) {
-          if (state is ToDoLoaded) {
-            showSnackBar(context,
-                text: "To do loaded sucessfully",
-                icon: WebSymbols.ok_circle,
-                textColor: Colors.green);
-          }
-        }, child: BlocBuilder<ToDoBloc, ToDoState>(
-          builder: (context, state) {
-            if (state is ToDoLoading) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: csecondary.withOpacity(1),
-                ),
-              );
-            } else if (state is ToDoError) {
-              return const Center(
-                child: Text("error  "),
-              );
-            }
-            return HomeComponent();
-          },
-        )));
+        body: BlocListener<ToDoBloc, ToDoState>(
+            listener: (context, state) {},
+            child: BlocBuilder<ToDoBloc, ToDoState>(
+              builder: (context, state) {
+                if (state is ToDoLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: csecondary.withOpacity(1),
+                    ),
+                  );
+                } else if (state is ToDoOperationFailure) {
+                  return const Center(
+                    child: Text("error  "),
+                  );
+                }
+                return HomeComponent();
+              },
+            )));
   }
 }

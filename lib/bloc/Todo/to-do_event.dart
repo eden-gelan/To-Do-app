@@ -1,6 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:todo/model/to-do.dart';
 
 abstract class ToDOEvent extends Equatable {
+  @override
+  List<Object> get props => [];
+}
+
+class ToDoload extends ToDOEvent {
+  ToDoload();
+
   @override
   List<Object> get props => [];
 }
@@ -18,10 +26,6 @@ final class AddToDoRequested extends ToDOEvent {
       required this.status,
       required this.tags,
       required this.date});
-}
-
-class GetData extends ToDOEvent {
-  GetData();
 }
 
 class DeleteToDoRequested extends ToDOEvent {

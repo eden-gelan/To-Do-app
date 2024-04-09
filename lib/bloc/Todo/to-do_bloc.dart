@@ -6,69 +6,78 @@ import 'to-do_state.dart';
 
 class ToDoBloc extends Bloc<ToDOEvent, ToDoState> {
   final ToDoRepository toDoRepository;
-  ToDoBloc({required this.toDoRepository}) : super(InitialState()) {
+  ToDoBloc({required this.toDoRepository}) : super(ToDoLoading()) {
     on<AddToDoRequested>((event, emit) async {
-      emit(ToDoAdding());
-      await Future.delayed(const Duration(seconds: 1));
       try {
-        await toDoRepository.create(
+        await toDoRepository.createToDo(
             title: event.title,
             description: event.description,
             status: event.status,
             tags: event.tags,
             date: event.date);
-        final data = await ToDoRepository().get();
-        emit(ToDoAdded());
-        emit(ToDoLoaded(data));
+        final data = await toDoRepository.getToDoList();
+
+        emit(ToDoLoadSuccess(
+          todos: data,
+          isInitialLoad: false, // Indicate it's the initial load
+        ));
       } catch (e) {
-        emit(ToDoError(e.toString()));
+        emit(ToDoOperationFailure());
       }
     });
 
-    on<GetData>((event, emit) async {
+    on<ToDoload>((event, emit) async {
       emit(ToDoLoading());
       try {
-        final data = await ToDoRepository().get();
-        emit(ToDoLoaded(data));
+        final data = await toDoRepository.getToDoList();
+        emit(ToDoLoadSuccess(
+          todos: data,
+          isInitialLoad: true, // Indicate it's the initial load
+        ));
       } catch (e) {
         FlutterError.reportError(FlutterErrorDetails(exception: e));
-        emit(ToDoError(e.toString()));
+        emit(ToDoOperationFailure());
       }
     });
 
     on<DeleteToDoRequested>((event, emit) async {
-      emit(ToDoDeleting());
       try {
-        await toDoRepository.delete(event.todoId);
-        final data = await ToDoRepository().get();
+        await toDoRepository.deleteToDo(event.todoId);
+        final data = await toDoRepository.getToDoList();
 
-        emit(ToDoLoaded(data));
-        emit(ToDoLoaded(data));
+        emit(ToDoLoadSuccess(
+          todos: data,
+          isInitialLoad: false, // Indicate it's the initial load
+        ));
       } catch (e) {
-        emit(ToDoError(e.toString()));
+        emit(ToDoOperationFailure());
       }
     });
     on<UpdateToDoStatusRequested>((event, emit) async {
-      emit(ToDoUpdating());
       try {
-        await toDoRepository.updateStatus(event.todoId, event.newStatus);
-        final data = await ToDoRepository().get();
+        await toDoRepository.updateToDoStatus(event.todoId, event.newStatus);
+        final data = await toDoRepository.getToDoList();
 
-        emit(ToDoLoaded(data));
+        emit(ToDoLoadSuccess(
+          todos: data,
+          isInitialLoad: false, // Indicate it's the initial load
+        ));
       } catch (e) {
-        emit(ToDoError(e.toString()));
+        emit(ToDoOperationFailure());
       }
     });
 
     on<PermanentDeleteToDoRequested>((event, emit) async {
-      emit(PermanentDeleting());
       try {
-        await toDoRepository.permanentDelete(event.todoId);
-        final data = await toDoRepository.get();
-        emit(PermanetDeleted(data));
-        emit(ToDoLoaded(data));
+        await toDoRepository.permanentDeleteToDo(event.todoId);
+        final data = await toDoRepository.getToDoList();
+
+        emit(ToDoLoadSuccess(
+          todos: data,
+          isInitialLoad: false, // Indicate it's the initial load
+        ));
       } catch (e) {
-        emit(ToDoError(e.toString()));
+        emit(ToDoOperationFailure());
       }
     });
   }

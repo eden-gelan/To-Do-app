@@ -36,11 +36,11 @@ class _CustomeTabBarState extends State<CustomeTabBar>
         ),
         Container(
           width: double.maxFinite,
-          height: 300,
+          height: MediaQuery.of(context).size.height * 0.80,
           child: TabBarView(
             controller: _tabController,
             children: const [
-              CustomeListView(status: "to-do"),
+              CustomeListView(status: "todo"),
               CustomeListView(
                 status: "doing",
               ),
