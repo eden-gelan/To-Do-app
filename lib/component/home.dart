@@ -32,12 +32,12 @@ class _HomeComponentState extends State<HomeComponent> {
               fontSize: 32)),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(20.0),
           child: Column(
             children: [
               Row(
                 children: [
-                  const Expanded(child: SearchBarWidget()),
+                  Expanded(child: SearchBarWidget()),
                   const SizedBox(
                     width: 50,
                   ),

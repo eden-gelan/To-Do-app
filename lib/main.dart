@@ -38,10 +38,10 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: ThemeData(
             textTheme: GoogleFonts.poppinsTextTheme(),
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
             useMaterial3: true,
           ),
-          initialRoute: RouterClass.home,
+          initialRoute: RouterClass.onboading,
           getPages: RouterClass.routes,
         ),
       ),

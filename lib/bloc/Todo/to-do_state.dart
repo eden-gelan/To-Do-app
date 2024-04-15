@@ -3,50 +3,33 @@ import 'package:todo/model/to-do.dart';
 
 abstract class ToDoState extends Equatable {}
 
-// class InitialState extends ToDoState {
-//   @override
-//   List<Object?> get props => [];
-// }
-
 class ToDoLoading extends ToDoState {
   @override
   List<Object?> get props => [];
 }
 
-// class ToDoLoadSucess extends ToDoState {
-//   final List<Todo> todos;
-//   ToDoLoadSucess([this.todos = const []]);
-//   @override
-//   List<Object?> get props => [todos];
-// }
-
 class ToDoLoadSuccess extends ToDoState {
   final List<Todo> todos;
-  final bool isInitialLoad;
 
-  ToDoLoadSuccess({required this.todos, this.isInitialLoad = false});
-
+  ToDoLoadSuccess({required this.todos});
   @override
-  List<Object?> get props => [todos, isInitialLoad];
+  List<Object?> get props => [todos];
 }
 
 class ToDoOperationFailure extends ToDoState {
   @override
-  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
+class ToDoAdding extends ToDoState {
+  @override
+  List<Object?> get props => [];
+}
 
-
-// class ToDoAdding extends ToDoState {
-//   @override
-//   List<Object?> get props => [];
-// }
-
-// class ToDoAdded extends ToDoState {
-//   @override
-//   List<Object?> get props => [];
-// }
+class ToDoAdded extends ToDoState {
+  @override
+  List<Object?> get props => [];
+}
 
 // class ToDoError extends ToDoState {
 //   final String error;

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:todo/model/to-do.dart';
 
 abstract class ToDOEvent extends Equatable {
   @override

@@ -5,16 +5,13 @@ import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/linearicons_free_icons.dart';
 import 'package:fluttericon/linecons_icons.dart';
-import 'package:fluttericon/web_symbols_icons.dart';
 import 'package:get/get.dart';
 import 'package:todo/bloc/Todo/to-do_bloc.dart';
 import 'package:todo/bloc/Todo/to-do_state.dart';
 import 'package:todo/component/home.dart';
 import 'package:todo/constant/constant.dart';
 import 'package:todo/reusableWedget/reusable_text.dart';
-import 'package:todo/reusableWedget/snackBar.dart';
 import 'package:todo/routes/routes.dart';
-import '../../bloc/Todo/to-do_event.dart';
 import '../../config/firebase_auth_method.dart';
 
 class HomePage extends StatefulWidget {

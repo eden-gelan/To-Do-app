@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:todo/component/listView.dart';
-import 'package:todo/routes/routes.dart';
 
 class Trash extends StatefulWidget {
   const Trash({super.key});

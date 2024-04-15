@@ -19,7 +19,6 @@ class ToDoBloc extends Bloc<ToDOEvent, ToDoState> {
 
         emit(ToDoLoadSuccess(
           todos: data,
-          isInitialLoad: false, // Indicate it's the initial load
         ));
       } catch (e) {
         emit(ToDoOperationFailure());
@@ -32,7 +31,7 @@ class ToDoBloc extends Bloc<ToDOEvent, ToDoState> {
         final data = await toDoRepository.getToDoList();
         emit(ToDoLoadSuccess(
           todos: data,
-          isInitialLoad: true, // Indicate it's the initial load
+          // Indicate it's the initial load
         ));
       } catch (e) {
         FlutterError.reportError(FlutterErrorDetails(exception: e));
@@ -47,7 +46,7 @@ class ToDoBloc extends Bloc<ToDOEvent, ToDoState> {
 
         emit(ToDoLoadSuccess(
           todos: data,
-          isInitialLoad: false, // Indicate it's the initial load
+          // Indicate it's the initial load
         ));
       } catch (e) {
         emit(ToDoOperationFailure());
@@ -60,7 +59,6 @@ class ToDoBloc extends Bloc<ToDOEvent, ToDoState> {
 
         emit(ToDoLoadSuccess(
           todos: data,
-          isInitialLoad: false, // Indicate it's the initial load
         ));
       } catch (e) {
         emit(ToDoOperationFailure());
@@ -74,7 +72,6 @@ class ToDoBloc extends Bloc<ToDOEvent, ToDoState> {
 
         emit(ToDoLoadSuccess(
           todos: data,
-          isInitialLoad: false, // Indicate it's the initial load
         ));
       } catch (e) {
         emit(ToDoOperationFailure());

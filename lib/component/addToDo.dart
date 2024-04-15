@@ -66,7 +66,7 @@ class _AddToDoState extends State<AddToDo> {
   @override
   Widget build(BuildContext context) {
     String _dropdownValue = 'todo'; // Ensure casing matches the items
-    var _items = ["todo", "Doing", "Done"];
+    var _items = ["todo", "doing", "done"];
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Padding(
